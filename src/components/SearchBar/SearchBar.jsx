@@ -1,7 +1,7 @@
 import "./SearchBar.css";
 
 const SearchBar = (props) => {
-  const { setValue } = props;
+  const { search } = props;
 
   return (
     <div className="searchbar">
@@ -9,7 +9,7 @@ const SearchBar = (props) => {
         <input
           type="search"
           onChange={(e) => {
-            setValue(e.target.value);
+            search(e.target.value);
           }}
         ></input>
       </div>

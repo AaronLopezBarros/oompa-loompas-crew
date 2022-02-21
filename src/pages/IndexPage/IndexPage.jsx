@@ -7,8 +7,18 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 const IndexPage = () => {
   const [data, setData] = useState();
   const [updateData, setUpdateData] = useState(1);
-  const [value, setValue] = useState();
-  const [filteredData, setFilteredData] = useState()
+  const [filteredData, setFilteredData] = useState();
+
+  const search = (text) => {
+    const searched = filteredData.filter((elem) => {
+      return (
+        elem.first_name.toLowerCase().includes(text.toLowerCase()) ||
+        elem.last_name.toLowerCase().includes(text.toLowerCase()) ||
+        elem.profession.toLowerCase().includes(text.toLowerCase())
+      );
+    });
+    setData(searched);
+  };
 
   //   window.localStorage.setItem(
   //     'data', JSON.stringify(data),
@@ -19,7 +29,10 @@ const IndexPage = () => {
       .get(
         "https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=1"
       )
-      .then((response) => setData(response.data.results))
+      .then((response) => {
+        setData(response.data.results);
+        setFilteredData(response.data.results);
+      })
       .catch((err) => console.log(err));
 
     // window.localStorage.setItem(
@@ -42,10 +55,10 @@ const IndexPage = () => {
       setUpdateData(updateData + 1);
     }
   };
-console.log(value)
+
   return (
     <>
-      <SearchBar setValue={setValue} />
+      <SearchBar search={search} />
       <div className="container-oompas">
         {data &&
           data.map((item) => {
