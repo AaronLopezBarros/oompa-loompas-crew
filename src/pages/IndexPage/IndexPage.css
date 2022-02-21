@@ -1,0 +1,9 @@
+.container-oompas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.container-card{
+    margin: 50px;
+}
