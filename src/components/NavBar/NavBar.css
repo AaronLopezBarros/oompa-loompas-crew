@@ -1,7 +1,19 @@
 .navbar{
     background-color: rgb(217, 216, 216);
+    width: 100vw;
 }
 .navbar a{
     text-decoration: none;
     color: black;
+}
+.flex-navbar{
+    display: flex;
+}
+.flex-navbar img{
+    margin: 10px;
+    margin-left: 100px;
+}
+.flex-navbar p{
+    margin-left: 40px;
+    font-weight: bold;
 }

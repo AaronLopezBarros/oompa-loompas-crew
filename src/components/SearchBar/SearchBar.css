@@ -1,0 +1,15 @@
+.searchbar{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+
+.searchbar input{
+    border-radius: 5px;
+    height: 30px;
+    background-image: url("../../assets/images/ic_search.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 20px;
+    text-decoration: none;
+}

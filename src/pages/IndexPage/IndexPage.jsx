@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Col, Container, Row } from "react-bootstrap";
 import CardOompa from "../../components/CardOompa/CardOompa";
 import "./IndexPage.css";
+import SearchBar from "../../components/SearchBar/SearchBar";
+
 const IndexPage = () => {
   const [data, setData] = useState();
+  const [updateData, setUpdateData] = useState(1);
+  const [value, setValue] = useState();
+  const [filteredData, setFilteredData] = useState()
+
+  //   window.localStorage.setItem(
+  //     'data', JSON.stringify(data),
+  // )
 
   useEffect(() => {
     axios
@@ -13,20 +21,41 @@ const IndexPage = () => {
       )
       .then((response) => setData(response.data.results))
       .catch((err) => console.log(err));
+
+    // window.localStorage.setItem(
+    //     'date', JSON.stringify(Date.now())
+    // )
   }, []);
+
+  useEffect(() => {
+    if (updateData > 1) {
+      axios
+        .get(
+          `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=${updateData}`
+        )
+        .then((response) => setData([...data], [response.data.results]));
+    }
+  }, [updateData]);
+
+  window.onscroll = function (ev) {
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+      setUpdateData(updateData + 1);
+    }
+  };
+console.log(value)
   return (
     <>
-      <Container className="container-oompas">
-
+      <SearchBar setValue={setValue} />
+      <div className="container-oompas">
         {data &&
           data.map((item) => {
             return (
-                <Container className="container-card">
+              <div key={item.id} className="container-card">
                 <CardOompa item={item} />
-                </Container>
+              </div>
             );
           })}
-      </Container>
+      </div>
     </>
   );
 };

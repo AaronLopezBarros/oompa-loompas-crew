@@ -1,13 +1,12 @@
-import { Navbar, Container, Col } from "react-bootstrap";
 import logoUmpa from "../../assets/images/logo-umpa-loompa.png";
-import "./NavBar.css"
+import { Link } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = () => {
   return (
-
-      <Navbar className="navbar">
-        <Container>
-          <Navbar.Brand href="/">
+    <div className="navbar">
+        <Link to="/">
+          <div className="flex-navbar">
             <img
               alt="logo umpa loompa"
               src={logoUmpa}
@@ -15,11 +14,10 @@ const NavBar = () => {
               height="30"
               className="d-inline-block align-top"
             />
-            Oompa Loompa's Crew
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
-
+            <p>Oompa Loompa's Crew</p>
+          </div>
+        </Link>
+    </div>
   );
 };
 
