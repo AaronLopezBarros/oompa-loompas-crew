@@ -1,8 +1,8 @@
+import { BeatLoader } from "react-spinners";
 import "./CardOompaDetails.css";
 
 const CardOompaDetail = (props) => {
   const { data } = props;
-  console.log(data);
   return data ? (
     <div className="container-oompa-details">
       <div>
@@ -16,7 +16,9 @@ const CardOompaDetail = (props) => {
       </div>
     </div>
   ) : (
-    <h1>loading</h1>
+    <div className="center-spinner">
+    <BeatLoader color="rgb(217,216,216)" size="100px"/>
+    </div>
   );
 };
 

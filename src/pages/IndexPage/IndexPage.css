@@ -8,3 +8,9 @@
 .container-card{
     margin: 50px;
 }
+.center-spinner{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

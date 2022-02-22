@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CardOompa from "../../components/CardOompa/CardOompa";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { BeatLoader } from "react-spinners";
 import "./IndexPage.css";
 
 const IndexPage = () => {
@@ -61,16 +62,27 @@ const IndexPage = () => {
   return (
     <>
       <SearchBar search={search} />
-      <div className="container-oompas">
-        {data &&
-          data.map((item) => {
-            return (
-              <div key={data.indexOf(item)} className="container-card">
-                <CardOompa item={item} />
-              </div>
-            );
-          })}
-      </div>
+      {data.length > 0 ? (
+        <div className="container-oompas">
+          {data &&
+            data.map((item) => {
+              return (
+                <div key={data.indexOf(item)} className="container-card">
+                  <CardOompa item={item} />
+                </div>
+              );
+            })}
+          {!canFetch && (
+            <div className="center-spinner">
+              <BeatLoader color="rgb(217,216,216)" size="100px" />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="center-spinner">
+          <BeatLoader color="rgb(217,216,216)" size="100px" />
+        </div>
+      )}
     </>
   );
 };

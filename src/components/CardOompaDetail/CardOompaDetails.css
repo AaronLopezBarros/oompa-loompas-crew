@@ -13,3 +13,9 @@
 .container-info p{
     font-size: 1.2rem;
 }
+.center-spinner{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
