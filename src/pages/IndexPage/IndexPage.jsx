@@ -8,6 +8,7 @@ const IndexPage = () => {
   const [data, setData] = useState([]);
   const [updateData, setUpdateData] = useState(1);
   const [filteredData, setFilteredData] = useState([]);
+  const [canFetch, setCanFetch] = useState(true);
 
   const search = (text) => {
     const searched = filteredData.filter((elem) => {
@@ -41,14 +42,19 @@ const IndexPage = () => {
         .then((response) => {
           setData([...data, ...response.data.results]);
           setFilteredData([...data, ...response.data.results]);
+          setCanFetch(true);
         })
         .catch((err) => console.log(err));
     }
   }, [updateData]);
 
   window.onscroll = function (ev) {
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+    if (
+      canFetch &&
+      window.innerHeight + window.pageYOffset >= document.body.offsetHeight
+    ) {
       setUpdateData(updateData + 1);
+      setCanFetch(false);
     }
   };
 
