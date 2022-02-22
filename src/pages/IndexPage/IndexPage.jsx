@@ -20,10 +20,6 @@ const IndexPage = () => {
     setData(searched);
   };
 
-  //   window.localStorage.setItem(
-  //     'data', JSON.stringify(data),
-  // )
-
   useEffect(() => {
     axios
       .get(
@@ -32,12 +28,13 @@ const IndexPage = () => {
       .then((response) => {
         setData(response.data.results);
         setFilteredData(response.data.results);
+        //   window.localStorage.setItem(
+        //     "data",
+        //     JSON.stringify(response.data.results)
+        //   );
+        //   window.localStorage.setItem("date", Date.now());
       })
       .catch((err) => console.log(err));
-
-    // window.localStorage.setItem(
-    //     'date', JSON.stringify(Date.now())
-    // )
   }, []);
 
   useEffect(() => {
@@ -46,9 +43,15 @@ const IndexPage = () => {
         .get(
           `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=${updateData}`
         )
-        .then((response) => setData([...data], [response.data.results]));
+        .then((response) => {
+          setData([...data, ...response.data.results]);
+          setFilteredData([...data, ...response.data.results]);
+        })
+        .catch((err) => console.log(err));
     }
   }, [updateData]);
+
+  console.log(data);
 
   window.onscroll = function (ev) {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
