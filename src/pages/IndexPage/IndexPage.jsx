@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import CardOompa from "../../components/CardOompa/CardOompa";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { BeatLoader } from "react-spinners";
 import "./IndexPage.css";
+import {getAllOompas} from "../../services/oompas.service";
 
 const IndexPage = () => {
   const [data, setData] = useState([]);
   const [updateData, setUpdateData] = useState(1);
   const [filteredData, setFilteredData] = useState([]);
-  const [canFetch, setCanFetch] = useState(true);
+  const [loadingBottom, setLoadingBottom] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  //Función que le paso al searchbar para coger el value del input y hacer un filter sobre los oompas
   const search = (text) => {
     const searched = filteredData.filter((elem) => {
       return (
@@ -22,57 +24,45 @@ const IndexPage = () => {
     setData(searched);
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=1"
-  //     )
-  //     .then((response) => {
-  //       setData(response.data.results);
-  //       setFilteredData(response.data.results);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   useEffect(() => {
+
+    //Verificamos que el usuario no este filtrando los oompas para poder hacer la llamada y actualizar la data
     if (data.length === filteredData.length) {
-      axios
-        .get(
-          `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=${updateData}`
-        )
+      getAllOompas(updateData)
         .then((response) => {
           setData([...data, ...response.data.results]);
           setFilteredData([...data, ...response.data.results]);
-          setCanFetch(true);
+          setLoadingBottom(false);
+          setLoading(false);
         })
         .catch((err) => console.log(err));
     }
   }, [updateData]);
 
+  //Funcion para checkear que el usuario esta en el bottom del screen para actualizar el hook y hacer una nueva llamada a la siguiente página para obtener los siguientes oompas de la api
   window.onscroll = function (ev) {
     if (
-      canFetch &&
+      data.length === filteredData.length &&
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight
     ) {
       setUpdateData(updateData + 1);
-      setCanFetch(false);
+      setLoadingBottom(true);
     }
   };
 
   return (
     <>
       <SearchBar search={search} />
-      {data.length > 0 ? (
+      {!loading ? (
         <div className="container-oompas">
-          {data &&
-            data.map((item) => {
-              return (
-                <div key={data.indexOf(item)} className="container-card">
-                  <CardOompa item={item} />
-                </div>
-              );
-            })}
-          {!canFetch && (
+          {data.map((item) => {
+            return (
+              <div key={data.indexOf(item)} className="container-card">
+                <CardOompa item={item} />
+              </div>
+            );
+          })}
+          {loadingBottom && (
             <div className="center-spinner">
               <BeatLoader color="rgb(217,216,216)" size="100px" />
             </div>

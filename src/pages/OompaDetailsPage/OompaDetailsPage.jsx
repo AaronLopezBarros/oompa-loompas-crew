@@ -1,4 +1,4 @@
-import axios from "axios";
+import { getOneOompa } from "../../services/oompas.service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CardOompaDetail from "../../components/CardOompaDetail/CardOompaDetail";
@@ -8,11 +8,9 @@ const OompaDetailsPage = () => {
   const [data, setData] = useState();
   const [loadData, setLoadData] = useState(false);
 
+  //Llamada a la api para obtener los detalles de un oompa pasandole el id
   useEffect(() => {
-    axios
-      .get(
-        `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${oompaId}`
-      )
+    getOneOompa(oompaId)
       .then((response) => {
         setData(response.data);
         setLoadData(true);

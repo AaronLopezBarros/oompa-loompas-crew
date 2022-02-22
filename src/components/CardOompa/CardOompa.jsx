@@ -3,6 +3,7 @@ import "./CardOompa.css";
 
 const CardOompa = (props) => {
   const { item } = props;
+
   return (
     <div className="card">
       <Link to={`/oompa/${item.id}`}>

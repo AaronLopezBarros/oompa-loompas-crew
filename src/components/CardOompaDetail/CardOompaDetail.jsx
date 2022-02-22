@@ -4,10 +4,12 @@ import "./CardOompaDetails.css";
 const CardOompaDetail = (props) => {
   const { data, loadData } = props;
 
+  //Parseo la información de la descripción a html y se la añado al div para renderizarla
+
   if (loadData) {
     const parser = new DOMParser();
-    const parseDescription = parser.parseFromString(
-      data.description,
+    const parseDescription = parser.parseFromString(          
+      data.description,                                   
       "text/html"
     );
     const divDescription = document.querySelector("#div-description");
