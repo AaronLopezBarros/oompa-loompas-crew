@@ -1,6 +1,8 @@
 .navbar{
     background-color: rgb(217, 216, 216);
     width: 100vw;
+    position: fixed;
+    top: 0;
 }
 .navbar a{
     text-decoration: none;

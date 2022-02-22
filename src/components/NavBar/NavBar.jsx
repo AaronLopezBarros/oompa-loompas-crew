@@ -5,7 +5,7 @@ import "./NavBar.css";
 const NavBar = () => {
   return (
     <div className="navbar">
-        <Link to="/">
+        <Link to="/" onClick={"window.scrollTo(0, 0)"}>
           <div className="flex-navbar">
             <img
               alt="logo umpa loompa"

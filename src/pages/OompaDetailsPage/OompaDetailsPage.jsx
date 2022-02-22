@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./OompaDetailsPage.css";
 
 const OompaDetailsPage = () => {
     const oompaId = useParams().id
@@ -14,7 +15,10 @@ const OompaDetailsPage = () => {
     },[])
     
     return (
+        <div className="container-oompa-details">
         <h1>hola</h1>
+
+        </div>
     )
 }
 

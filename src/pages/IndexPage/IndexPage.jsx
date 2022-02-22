@@ -38,7 +38,7 @@ const IndexPage = () => {
   }, []);
 
   useEffect(() => {
-    if (updateData > 1) {
+    if (updateData > 1 && data.length === filteredData.length) {
       axios
         .get(
           `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?pa ge=${updateData}`
@@ -50,8 +50,6 @@ const IndexPage = () => {
         .catch((err) => console.log(err));
     }
   }, [updateData]);
-
-  console.log(data);
 
   window.onscroll = function (ev) {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
@@ -66,7 +64,7 @@ const IndexPage = () => {
         {data &&
           data.map((item) => {
             return (
-              <div key={item.id} className="container-card">
+              <div key={data.indexOf(item)} className="container-card">
                 <CardOompa item={item} />
               </div>
             );

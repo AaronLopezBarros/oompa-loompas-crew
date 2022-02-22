@@ -6,7 +6,7 @@ const CardOompa = (props) => {
   return (
     <div className="card">
       <Link to={`/oompa/${item.id}`}>
-        <img src={item.image} width="300" />
+        <img src={item.image} width="400" />
         <div>
           <h4>{`${item.first_name} ${item.last_name}`}</h4>
           {item.gender === "M" ? <p>Male</p> : <p>Female</p>}
